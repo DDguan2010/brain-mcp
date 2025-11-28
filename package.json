@@ -1,5 +1,5 @@
 {
-  "name": "brain-mcp",
+  "name": "ai-brain-mcp",
   "version": "1.0.0",
   "type": "module",
   "main": "dist/server.js",
@@ -17,7 +17,7 @@
   ],
   "author": "",
   "license": "ISC",
-  "description": "Memory Control Protocol - AI memory management system",
+  "description": "Memory Control Protocol - AI memory and thinking management system",
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.23.0",
     "express": "^5.1.0",
@@ -29,5 +29,8 @@
     "@types/node": "^22.10.2",
     "@types/uuid": "^10.0.0",
     "typescript": "^5.7.2"
-  }
+  },
+  "files": [
+    "build"
+  ]
 }
