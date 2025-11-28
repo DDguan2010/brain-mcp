@@ -1,8 +1,11 @@
 {
   "name": "digital-brain-mcp",
-  "version": "1.0.0",
+  "version": "1.0.4",
   "type": "module",
   "main": "dist/server.js",
+  "bin": {
+    "digital-brain-mcp": "dist/server.js"
+  },
   "scripts": {
     "build": "tsc",
     "start": "node dist/server.js",
@@ -15,17 +18,15 @@
     "ai",
     "brain"
   ],
-  "author": "",
-  "license": "ISC",
+  "author": "PPN-design",
+  "license": "MIT",
   "description": "Memory Control Protocol - AI memory and thinking management system",
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.23.0",
-    "express": "^5.1.0",
     "uuid": "^11.0.3",
     "zod": "^4.1.13"
   },
   "devDependencies": {
-    "@types/express": "^5.0.5",
     "@types/node": "^22.10.2",
     "@types/uuid": "^10.0.0",
     "typescript": "^5.7.2"

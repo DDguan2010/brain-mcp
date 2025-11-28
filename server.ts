@@ -1,6 +1,7 @@
+#!/usr/bin/env node
+
 import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
-import { StreamableHTTPServerTransport } from '@modelcontextprotocol/sdk/server/streamableHttp.js';
-import express from 'express';
+import { StdioServerTransport } from '@modelcontextprotocol/sdk/server/stdio.js';
 import * as z from 'zod/v4';
 import { BrainMCP } from './src/brain-mcp.js';
 
@@ -637,48 +638,37 @@ server.registerTool(
 );
 
 // ============================================================================
-// Setup Express Server
+// Setup Stdio Server
 // ============================================================================
 
-const app = express();
-app.use(express.json());
-
-app.post('/mcp', async (req, res) => {
-    const transport = new StreamableHTTPServerTransport({
-        sessionIdGenerator: undefined,
-        enableJsonResponse: true
-    });
-
-    res.on('close', () => {
-        transport.close();
-    });
-
+async function main() {
+    const transport = new StdioServerTransport();
+    
     await server.connect(transport);
-    await transport.handleRequest(req, res, req.body);
-});
-
-const port = parseInt(process.env.PORT || '3000');
-app.listen(port, () => {
-    console.log(`Brain-MCP Server running on http://localhost:${port}/mcp`);
-    console.log('Available tools:');
-    console.log('  - Short-Term Memory: addShortTermMemory, getShortTermMemory, clearShortTermMemory');
-    console.log('  - Long-Term Memory: addLongTermMemory, getLongTermMemory, searchLongTermMemory, updateLongTermMemory, deleteLongTermMemory, getAssociations');
-    console.log('  - Thinking Process: startThoughtProcess, addThought, branchThought, evaluateThought, completeThoughtProcess, getCurrentThoughtChain, pauseThinking, resumeThinking, switchCognitiveMode, getOptimalModeForTask, getThinkingProgress, getActiveChains, getThinkingStats');
-    console.log('  - System: saveMemory, getMemoryStats');
-}).on('error', (error: Error) => {
-    console.error('Server error:', error);
-    process.exit(1);
-});
+    
+    console.error('Brain-MCP MCP Server running on stdio');
+    console.error('Available tools:');
+    console.error('  - Short-Term Memory: addShortTermMemory, getShortTermMemory, clearShortTermMemory');
+    console.error('  - Long-Term Memory: addLongTermMemory, getLongTermMemory, searchLongTermMemory, updateLongTermMemory, deleteLongTermMemory, getAssociations');
+    console.error('  - Thinking Process: startThoughtProcess, addThought, branchThought, evaluateThought, completeThoughtProcess, getCurrentThoughtChain, pauseThinking, resumeThinking, switchCognitiveMode, getOptimalModeForTask, getThinkingProgress, getActiveChains, getThinkingStats');
+    console.error('  - System: saveMemory, getMemoryStats');
+}
 
 // Graceful shutdown
 process.on('SIGINT', async () => {
-    console.log('Shutting down gracefully...');
+    console.error('Shutting down gracefully...');
     await brainMCP.shutdown();
     process.exit(0);
 });
 
 process.on('SIGTERM', async () => {
-    console.log('Shutting down gracefully...');
+    console.error('Shutting down gracefully...');
     await brainMCP.shutdown();
     process.exit(0);
+});
+
+// Start the server
+main().catch((error) => {
+    console.error('Server error:', error);
+    process.exit(1);
 });
