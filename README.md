@@ -38,7 +38,7 @@ Brain-MCP为AI提供完整的记忆管理系统，支持短期记忆、长期记
   "mcpServers": {
     "brain": {
       "command": "npx",
-      "args": ["-y", "@ai-brain-mcp"],
+      "args": ["-y", "@digital-brain-mcp"],
       "env": {
         "BRAIN_MCP_STORAGE_PATH":"./memory_data"
       }

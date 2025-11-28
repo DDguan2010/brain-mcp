@@ -1,5 +1,5 @@
 {
-  "name": "ai-brain-mcp",
+  "name": "digital-brain-mcp",
   "version": "1.0.0",
   "type": "module",
   "main": "dist/server.js",
@@ -31,6 +31,6 @@
     "typescript": "^5.7.2"
   },
   "files": [
-    "build"
+    "dist"
   ]
 }
