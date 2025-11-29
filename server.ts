@@ -10,9 +10,9 @@ import { BrainMCP } from './src/brain-mcp.js';
 // ============================================================================
 
 const brainMCP = new BrainMCP({
-    storagePath: './memory_data',
+    storagePath: process.env.BRAIN_MCP_STORAGE_PATH || './memory_data',
     shortTermCapacity: 100,
-    autoSaveInterval: 5 * 60 * 1000, // 5 minutes
+    autoSaveInterval: process.env.BRAIN_MCP_AUTO_SAVE_INTERVAL ? parseInt(process.env.BRAIN_MCP_AUTO_SAVE_INTERVAL) : 5 * 60 * 1000, // 5 minutes
     searchLimit: 10,
     enableBackup: true,
 });
